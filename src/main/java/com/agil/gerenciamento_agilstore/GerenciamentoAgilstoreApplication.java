@@ -1,13 +1,15 @@
 package com.agil.gerenciamento_agilstore;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import com.agil.gerenciamento_agilstore.controller.CLIController;
+import com.agil.gerenciamento_agilstore.repository.ProdutoRepositoryImpl;
+import com.agil.gerenciamento_agilstore.service.ProdutoService;
 
-@SpringBootApplication
 public class GerenciamentoAgilstoreApplication {
-
 	public static void main(String[] args) {
-		SpringApplication.run(GerenciamentoAgilstoreApplication.class, args);
-	}
+		ProdutoRepositoryImpl repository = new ProdutoRepositoryImpl();
+		ProdutoService service = new ProdutoService(repository);
+		CLIController cliController = new CLIController(service);
 
+		cliController.iniciar();
+	}
 }
