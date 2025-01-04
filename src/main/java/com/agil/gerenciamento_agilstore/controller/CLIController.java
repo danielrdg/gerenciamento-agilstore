@@ -3,6 +3,7 @@ package com.agil.gerenciamento_agilstore.controller;
 import com.agil.gerenciamento_agilstore.model.Produto;
 import com.agil.gerenciamento_agilstore.service.ProdutoService;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class CLIController {
@@ -27,7 +28,7 @@ public class CLIController {
 
             switch (opcao) {
                 case 1 -> adicionarProduto(teclado);
-                case 2 -> listarProdutos();
+                case 2 -> listarProdutos(teclado);
                 case 3 -> atualizarProduto(teclado);
                 case 4 -> removerProduto(teclado);
                 case 0 -> {
@@ -57,10 +58,27 @@ public class CLIController {
         System.out.println("Produto adicionado com sucesso!");
     }
 
-    private void listarProdutos() {
+    private void listarProdutos(Scanner teclado) {
         System.out.println("\nLista de Produtos:");
-        produtoService.listarProdutos().forEach(System.out::println);
+        System.out.println("1. Listar todos");
+        System.out.println("2. Filtrar por categoria");
+        System.out.println("3. Ordenar por nome");
+        System.out.println("4. Ordenar por quantidade");
+        System.out.println("5. Ordenar por preço");
+        System.out.print("Escolha uma opção: ");
+        int opcao = teclado.nextInt();
+        teclado.nextLine();
+
+        switch (opcao) {
+            case 1 -> listarTodos();
+            case 2 -> filtrarPorCategoria(teclado);
+            case 3 -> ordenarPorNome();
+            case 4 -> ordenarPorQuantidade();
+            case 5 -> ordenarPorPreco();
+            default -> System.out.println("Opção inválida!");
+        }
     }
+
 
     private void atualizarProduto(Scanner scanner) {
         System.out.print("ID do Produto: ");
@@ -115,6 +133,42 @@ public class CLIController {
             }
         }
     }
+
+    private void listarTodos() {
+        List<Produto> produtos = produtoService.listarProdutos();
+        if (produtos.isEmpty()) {
+            System.out.println("Nenhum produto cadastrado.");
+        } else {
+            produtos.forEach(System.out::println);
+        }
+    }
+
+    private void filtrarPorCategoria(Scanner teclado) {
+        System.out.print("Digite a categoria para filtrar: ");
+        String categoria = teclado.nextLine();
+        List<Produto> produtosFiltrados = produtoService.filtrarPorCategoria(categoria);
+        if (produtosFiltrados.isEmpty()) {
+            System.out.println("Nenhum produto encontrado na categoria: " + categoria);
+        } else {
+            produtosFiltrados.forEach(System.out::println);
+        }
+    }
+
+    private void ordenarPorNome() {
+        List<Produto> produtosOrdenados = produtoService.ordenarPorNome();
+        produtosOrdenados.forEach(System.out::println);
+    }
+
+    private void ordenarPorQuantidade() {
+        List<Produto> produtosOrdenados = produtoService.ordenarPorQuantidade();
+        produtosOrdenados.forEach(System.out::println);
+    }
+
+    private void ordenarPorPreco() {
+        List<Produto> produtosOrdenados = produtoService.ordenarPorPreco();
+        produtosOrdenados.forEach(System.out::println);
+    }
+
 
 
     private void removerProduto(Scanner scanner) {
