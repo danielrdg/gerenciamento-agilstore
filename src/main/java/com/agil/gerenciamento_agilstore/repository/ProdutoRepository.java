@@ -11,4 +11,5 @@ public interface ProdutoRepository {
     Optional<Produto> buscarPorId(String id);
     void remover(String id);
     void atualizar(Produto produto);
+    void salvarEmArquivo(String caminhoArquivo);
 }

@@ -82,4 +82,7 @@ public class ProdutoService {
         return true;
     }
 
+    public void salvarEmArquivo(String caminhoArquivo) {
+        repository.salvarEmArquivo(caminhoArquivo);
+    }
 }

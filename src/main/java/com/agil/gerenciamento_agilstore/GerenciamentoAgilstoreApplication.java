@@ -10,6 +10,11 @@ public class GerenciamentoAgilstoreApplication {
 		ProdutoService service = new ProdutoService(repository);
 		CLIController cliController = new CLIController(service);
 
+		Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+			String caminhoArquivo = "produtos.json";
+			repository.salvarEmArquivo(caminhoArquivo);
+			System.out.println("\nDados salvos automaticamente em: " + caminhoArquivo);
+		}));
 		cliController.iniciar();
 	}
 }

@@ -1,7 +1,10 @@
 package com.agil.gerenciamento_agilstore.repository;
 
 import com.agil.gerenciamento_agilstore.model.Produto;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -40,4 +43,16 @@ public class ProdutoRepositoryImpl implements ProdutoRepository {
             p.setPreco(produto.getPreco());
         });
     }
+
+    @Override
+    public void salvarEmArquivo(String caminhoArquivo) {
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            objectMapper.writeValue(new File(caminhoArquivo), produtos);
+        } catch (IOException e) {
+            System.err.println("Erro ao salvar os dados: " + e.getMessage());
+        }
+    }
+
+
 }
