@@ -169,13 +169,27 @@ public class CLIController {
         produtosOrdenados.forEach(System.out::println);
     }
 
-
-
     private void removerProduto(Scanner scanner) {
         System.out.print("ID do Produto: ");
         String id = scanner.nextLine();
 
-        produtoService.removerProduto(id);
-        System.out.println("Produto removido!");
+        Produto produto = produtoService.buscarProdutoPorId(id);
+        if (produto == null) {
+            System.out.println("Produto não encontrado!");
+            return;
+        }
+
+        System.out.println("Detalhes do Produto:");
+        System.out.println(produto);
+        System.out.print("Tem certeza de que deseja excluir este produto? (s/n): ");
+        String confirmacao = scanner.nextLine();
+
+        if (confirmacao.equalsIgnoreCase("s")) {
+            produtoService.removerProduto(id);
+            System.out.println("Produto removido com sucesso!");
+        } else {
+            System.out.println("Exclusão cancelada.");
+        }
     }
+
 }
