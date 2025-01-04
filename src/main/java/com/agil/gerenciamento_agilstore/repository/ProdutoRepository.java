@@ -9,6 +9,7 @@ public interface ProdutoRepository {
     Produto salvar(Produto produto);
     List<Produto> listarTodos();
     Optional<Produto> buscarPorId(String id);
+    List<Produto> buscarPorNome(String nomeParcial);
     void remover(String id);
     void atualizar(Produto produto);
     void salvarEmArquivo(String caminhoArquivo);

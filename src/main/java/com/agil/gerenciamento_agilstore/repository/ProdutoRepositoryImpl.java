@@ -54,5 +54,13 @@ public class ProdutoRepositoryImpl implements ProdutoRepository {
         }
     }
 
+    @Override
+    public List<Produto> buscarPorNome(String nomeParcial) {
+        return produtos.stream()
+                .filter(produto -> produto.getNome().toLowerCase().contains(nomeParcial.toLowerCase()))
+                .toList();
+    }
+
+
 
 }
