@@ -85,4 +85,13 @@ public class ProdutoService {
     public void salvarEmArquivo(String caminhoArquivo) {
         repository.salvarEmArquivo(caminhoArquivo);
     }
+
+    public List<Produto> buscarPorNome(String nomeParcial) {
+        List<Produto> resultados = repository.buscarPorNome(nomeParcial);
+        if (resultados.isEmpty()) {
+            throw new RuntimeException("Nenhum produto encontrado com o nome: " + nomeParcial);
+        }
+        return resultados;
+    }
+
 }

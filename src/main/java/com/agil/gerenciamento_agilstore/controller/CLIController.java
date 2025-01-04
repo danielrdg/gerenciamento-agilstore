@@ -21,6 +21,7 @@ public class CLIController {
             System.out.println("2. Listar Produtos");
             System.out.println("3. Atualizar Produto");
             System.out.println("4. Remover Produto");
+            System.out.println("5. Buscar Produto");
             System.out.println("0. Sair");
             System.out.print("Escolha uma opção: ");
             int opcao = teclado.nextInt();
@@ -31,6 +32,7 @@ public class CLIController {
                 case 2 -> listarProdutos(teclado);
                 case 3 -> atualizarProduto(teclado);
                 case 4 -> removerProduto(teclado);
+                case 5 -> buscarProduto(teclado);
                 case 0 -> {
                     System.out.println("Saindo...");
                     return;
@@ -57,6 +59,41 @@ public class CLIController {
         produtoService.adicionarProduto(produto);
         System.out.println("Produto adicionado com sucesso!");
     }
+
+    private void buscarProduto(Scanner teclado) {
+        System.out.println("Buscar Produto:");
+        System.out.println("1. Buscar por ID");
+        System.out.println("2. Buscar por Nome");
+        System.out.print("Escolha uma opção: ");
+        int opcao = teclado.nextInt();
+        teclado.nextLine();
+
+        switch (opcao) {
+            case 1 -> {
+                System.out.print("Digite o ID do produto: ");
+                String id = teclado.nextLine();
+                try {
+                    Produto produto = produtoService.buscarProdutoPorId(id);
+                    System.out.println("Produto encontrado: " + produto);
+                } catch (RuntimeException e) {
+                    System.out.println(e.getMessage());
+                }
+            }
+            case 2 -> {
+                System.out.print("Digite parte do nome do produto: ");
+                String nomeParcial = teclado.nextLine();
+                List<Produto> produtos = produtoService.buscarPorNome(nomeParcial);
+                if (produtos.isEmpty()) {
+                    System.out.println("Nenhum produto encontrado com o nome: " + nomeParcial);
+                } else {
+                    System.out.println("Produtos encontrados:");
+                    produtos.forEach(System.out::println);
+                }
+            }
+            default -> System.out.println("Opção inválida!");
+        }
+    }
+
 
     private void listarProdutos(Scanner teclado) {
         System.out.println("\nLista de Produtos:");
