@@ -20,7 +20,8 @@ Este projeto é uma aplicação desenvolvida em Java 21, com foco em uma interfa
 Para executar este projeto, é necessário ter instalado:  
 
 - JDK 21 ou superior  
-- IDE de sua preferência  
+- IDE de sua preferência
+- Maven versão 3.9.9 ou superior
 
 ---
 
