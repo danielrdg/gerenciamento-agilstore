@@ -99,49 +99,52 @@ public class CLIController {
             System.out.println("0. Concluir atualização");
             System.out.print("Escolha uma opção: ");
             int opcao = scanner.nextInt();
-            scanner.nextLine(); // Consome a quebra de linha
+            scanner.nextLine();
 
             switch (opcao) {
                 case 1 -> {
                     System.out.print("Novo Nome: ");
                     String novoNome = scanner.nextLine();
-                    produto.setNome(novoNome.isEmpty() ? produto.getNome() : novoNome);
+                    produto.setNome(novoNome);
                 }
                 case 2 -> {
                     System.out.print("Nova Categoria: ");
                     String novaCategoria = scanner.nextLine();
-                    produto.setCategoria(novaCategoria.isEmpty() ? produto.getCategoria() : novaCategoria);
+                    produto.setCategoria(novaCategoria);
                 }
                 case 3 -> {
                     System.out.print("Nova Quantidade: ");
                     int novaQuantidade = scanner.nextInt();
-                    scanner.nextLine(); // Consome a quebra de linha
+                    scanner.nextLine();
                     produto.setQuantidade(novaQuantidade);
                 }
                 case 4 -> {
                     System.out.print("Novo Preço: ");
                     double novoPreco = scanner.nextDouble();
-                    scanner.nextLine(); // Consome a quebra de linha
+                    scanner.nextLine();
                     produto.setPreco(novoPreco);
                 }
                 case 0 -> {
-                    produtoService.atualizarProduto(produto);
-                    System.out.println("Produto atualizado com sucesso!");
-                    return;
+                    if (produtoService.validarDadosProduto(produto)) {
+                        produtoService.atualizarProduto(produto);
+                        System.out.println("Produto atualizado com sucesso!");
+                        return;
+                    } else {
+                        System.out.println("Os dados do produto são inválidos. Atualização cancelada.");
+                        return;
+                    }
                 }
                 default -> System.out.println("Opção inválida! Escolha novamente.");
             }
         }
     }
 
+
     private void listarTodos() {
         List<Produto> produtos = produtoService.listarProdutos();
-        if (produtos.isEmpty()) {
-            System.out.println("Nenhum produto cadastrado.");
-        } else {
-            produtos.forEach(System.out::println);
-        }
+        produtos.forEach(System.out::println); // Exibe os produtos
     }
+
 
     private void filtrarPorCategoria(Scanner teclado) {
         System.out.print("Digite a categoria para filtrar: ");

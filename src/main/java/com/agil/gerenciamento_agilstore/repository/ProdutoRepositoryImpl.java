@@ -17,11 +17,9 @@ public class ProdutoRepositoryImpl implements ProdutoRepository {
 
     @Override
     public List<Produto> listarTodos() {
-        if (produtos.isEmpty()) {
-            System.out.println("Nenhum produto cadastrado.");
-        }
         return produtos;
     }
+
 
     @Override
     public Optional<Produto> buscarPorId(String id) {

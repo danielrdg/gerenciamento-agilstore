@@ -18,8 +18,13 @@ public class ProdutoService {
     }
 
     public List<Produto> listarProdutos() {
-        return repository.listarTodos();
+        List<Produto> produtos = repository.listarTodos();
+        if (produtos.isEmpty()) {
+            System.out.println("Nenhum produto cadastrado.");
+        }
+        return produtos;
     }
+
 
     public List<Produto> filtrarPorCategoria(String categoria) {
         return repository.listarTodos().stream()
@@ -56,4 +61,25 @@ public class ProdutoService {
     public void removerProduto(String id) {
         repository.remover(id);
     }
+
+    public boolean validarDadosProduto(Produto produto) {
+        if (produto.getNome() == null || produto.getNome().trim().isEmpty()) {
+            System.out.println("O nome do produto não pode ser vazio.");
+            return false;
+        }
+        if (produto.getCategoria() == null || produto.getCategoria().trim().isEmpty()) {
+            System.out.println("A categoria do produto não pode ser vazia.");
+            return false;
+        }
+        if (produto.getQuantidade() < 0) {
+            System.out.println("A quantidade do produto não pode ser negativa.");
+            return false;
+        }
+        if (produto.getPreco() < 0) {
+            System.out.println("O preço do produto não pode ser negativo.");
+            return false;
+        }
+        return true;
+    }
+
 }
