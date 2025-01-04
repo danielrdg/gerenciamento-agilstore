@@ -17,6 +17,9 @@ public class ProdutoRepositoryImpl implements ProdutoRepository {
 
     @Override
     public List<Produto> listarTodos() {
+        if (produtos.isEmpty()) {
+            System.out.println("Nenhum produto cadastrado.");
+        }
         return produtos;
     }
 
@@ -28,5 +31,15 @@ public class ProdutoRepositoryImpl implements ProdutoRepository {
     @Override
     public void remover(String id) {
         produtos.removeIf(p -> p.getId().equals(id));
+    }
+
+    @Override
+    public void atualizar(Produto produto) {
+        buscarPorId(produto.getId()).ifPresent(p -> {
+            p.setNome(produto.getNome());
+            p.setCategoria(produto.getCategoria());
+            p.setQuantidade(produto.getQuantidade());
+            p.setPreco(produto.getPreco());
+        });
     }
 }

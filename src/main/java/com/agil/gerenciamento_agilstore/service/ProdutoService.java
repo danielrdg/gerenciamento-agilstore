@@ -25,7 +25,7 @@ public class ProdutoService {
     }
 
     public void atualizarProduto(Produto produto) {
-        repository.buscarPorId(produto.getId()).ifPresent(p -> repository.salvar(produto));
+        repository.atualizar(produto);
     }
 
     public void removerProduto(String id) {
