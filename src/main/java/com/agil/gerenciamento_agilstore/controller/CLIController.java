@@ -72,13 +72,50 @@ public class CLIController {
             return;
         }
 
-        System.out.print("Novo Nome (atual: " + produto.getNome() + "): ");
-        String novoNome = scanner.nextLine();
-        produto.setNome(novoNome.isEmpty() ? produto.getNome() : novoNome);
+        while (true) {
+            System.out.println("\nEscolha o atributo que deseja atualizar:");
+            System.out.println("1. Nome (atual: " + produto.getNome() + ")");
+            System.out.println("2. Categoria (atual: " + produto.getCategoria() + ")");
+            System.out.println("3. Quantidade (atual: " + produto.getQuantidade() + ")");
+            System.out.println("4. Preço (atual: " + produto.getPreco() + ")");
+            System.out.println("0. Concluir atualização");
+            System.out.print("Escolha uma opção: ");
+            int opcao = scanner.nextInt();
+            scanner.nextLine(); // Consome a quebra de linha
 
-        produtoService.atualizarProduto(produto);
-        System.out.println("Produto atualizado!");
+            switch (opcao) {
+                case 1 -> {
+                    System.out.print("Novo Nome: ");
+                    String novoNome = scanner.nextLine();
+                    produto.setNome(novoNome.isEmpty() ? produto.getNome() : novoNome);
+                }
+                case 2 -> {
+                    System.out.print("Nova Categoria: ");
+                    String novaCategoria = scanner.nextLine();
+                    produto.setCategoria(novaCategoria.isEmpty() ? produto.getCategoria() : novaCategoria);
+                }
+                case 3 -> {
+                    System.out.print("Nova Quantidade: ");
+                    int novaQuantidade = scanner.nextInt();
+                    scanner.nextLine(); // Consome a quebra de linha
+                    produto.setQuantidade(novaQuantidade);
+                }
+                case 4 -> {
+                    System.out.print("Novo Preço: ");
+                    double novoPreco = scanner.nextDouble();
+                    scanner.nextLine(); // Consome a quebra de linha
+                    produto.setPreco(novoPreco);
+                }
+                case 0 -> {
+                    produtoService.atualizarProduto(produto);
+                    System.out.println("Produto atualizado com sucesso!");
+                    return;
+                }
+                default -> System.out.println("Opção inválida! Escolha novamente.");
+            }
+        }
     }
+
 
     private void removerProduto(Scanner scanner) {
         System.out.print("ID do Produto: ");

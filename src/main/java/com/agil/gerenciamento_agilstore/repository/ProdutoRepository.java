@@ -10,4 +10,5 @@ public interface ProdutoRepository {
     List<Produto> listarTodos();
     Optional<Produto> buscarPorId(String id);
     void remover(String id);
+    void atualizar(Produto produto);
 }
