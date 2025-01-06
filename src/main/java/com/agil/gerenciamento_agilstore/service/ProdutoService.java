@@ -82,10 +82,6 @@ public class ProdutoService {
         return true;
     }
 
-    public void salvarEmArquivo(String caminhoArquivo) {
-        repository.salvarEmArquivo(caminhoArquivo);
-    }
-
     public List<Produto> buscarPorNome(String nomeParcial) {
         List<Produto> resultados = repository.buscarPorNome(nomeParcial);
         if (resultados.isEmpty()) {

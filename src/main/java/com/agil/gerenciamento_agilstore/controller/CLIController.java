@@ -142,34 +142,49 @@ public class CLIController {
                 case 1 -> {
                     System.out.print("Novo Nome: ");
                     String novoNome = scanner.nextLine();
-                    produto.setNome(novoNome);
+                    if (novoNome == null || novoNome.trim().isEmpty()) {
+                        System.out.println("O nome do produto não pode ser vazio.");
+                    } else {
+                        produto.setNome(novoNome);
+                    }
                 }
                 case 2 -> {
                     System.out.print("Nova Categoria: ");
                     String novaCategoria = scanner.nextLine();
-                    produto.setCategoria(novaCategoria);
+                    if (novaCategoria == null || novaCategoria.trim().isEmpty()) {
+                        System.out.println("A categoria do produto não pode ser vazia.");
+                    } else {
+                        produto.setCategoria(novaCategoria);
+                    }
                 }
                 case 3 -> {
                     System.out.print("Nova Quantidade: ");
                     int novaQuantidade = scanner.nextInt();
                     scanner.nextLine();
-                    produto.setQuantidade(novaQuantidade);
+                    if (novaQuantidade < 0) {
+                        System.out.println("A quantidade do produto não pode ser negativa.");
+                    } else {
+                        produto.setQuantidade(novaQuantidade);
+                    }
                 }
                 case 4 -> {
                     System.out.print("Novo Preço: ");
                     double novoPreco = scanner.nextDouble();
                     scanner.nextLine();
-                    produto.setPreco(novoPreco);
+                    if (novoPreco < 0) {
+                        System.out.println("O preço do produto não pode ser negativo.");
+                    } else {
+                        produto.setPreco(novoPreco);
+                    }
                 }
                 case 0 -> {
                     if (produtoService.validarDadosProduto(produto)) {
                         produtoService.atualizarProduto(produto);
                         System.out.println("Produto atualizado com sucesso!");
-                        return;
                     } else {
                         System.out.println("Os dados do produto são inválidos. Atualização cancelada.");
-                        return;
                     }
+                    return;
                 }
                 default -> System.out.println("Opção inválida! Escolha novamente.");
             }
@@ -177,9 +192,10 @@ public class CLIController {
     }
 
 
+
     private void listarTodos() {
         List<Produto> produtos = produtoService.listarProdutos();
-        produtos.forEach(System.out::println); // Exibe os produtos
+        produtos.forEach(System.out::println);
     }
 
 
