@@ -10,7 +10,7 @@ Este projeto é uma aplicação desenvolvida em Java 21, com foco em uma interfa
 - Java 21
 - Spring Boot
 - Maven  
-- Lombok  
+- JUnit  
 - Jackson  
 
 ---
