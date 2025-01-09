@@ -55,4 +55,19 @@ A aplicação oferece as seguintes funcionalidades por meio de uma interface de 
   Permite buscar e exibir os detalhes de um produto específico pelo ID ou por parte do nome. Caso nenhum produto seja encontrado, a aplicação exibe uma mensagem apropriada.  
 
 - **Persistência de dados:**  
-  Salva automaticamente o inventário em um arquivo JSON ao encerrar a aplicação, garantindo que os dados sejam mantidos entre as execuções.  
+  Salva automaticamente o inventário em um arquivo JSON ao encerrar a aplicação, garantindo que os dados sejam mantidos entre as execuções.
+
+---
+## **Decisões de Design**
+
+O projeto foi desenvolvido com foco em simplicidade, organização e funcionalidade, resultando nas seguintes decisões principais:
+
+- Camadas Modulares: Separação clara em camadas (Model, Repository, Service, Controller) para facilitar manutenção e escalabilidade.
+- Substituição do Lombok: Devido a problemas de configuração da IDE, métodos get, set, toString e o construtor foram gerados manualmente, eliminando a dependência do Lombok.
+- Persistência Simples: Os dados são salvos automaticamente em um arquivo JSON ao encerrar a aplicação, garantindo persistência sem dependência de banco de dados.
+- Validações Robustas: Garantia de consistência nos dados do inventário com validações implementadas na camada de serviço.
+- Interface CLI: Menus organizados e instruções claras para facilitar o uso e a experiência do usuário.
+- Testes Unitários:
+  - Testes criados com JUnit, abrangendo as camadas de serviço e repositório.
+  - Verificam funcionalidades como adição, remoção, listagem e validação de produtos.
+  - Garantem o funcionamento correto das operações principais e aumentam a confiabilidade do projeto.
